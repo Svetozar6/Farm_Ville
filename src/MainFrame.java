@@ -6,11 +6,15 @@ import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
 public class MainFrame extends JFrame implements ActionListener {
     JFrame frame;
-    byte value=0;
-    MainFrame(){
+    User user;
+    Element currentEl;
+    MainFrame(User user1){
+        this.user=user1;
         ImageIcon cowicon=new ImageIcon("Sources/cow.png");
         ImageIcon sheepicon=new ImageIcon("Sources/sheep.png");
         ImageIcon pigicon=new ImageIcon("Sources/pig.png");
@@ -46,10 +50,10 @@ public class MainFrame extends JFrame implements ActionListener {
         JButton b7=new JButton();b7.setBackground(Color.green);b7.setBorder(null);
         JButton b8=new JButton();b8.setBackground(Color.green);b8.setBorder(null);
         field.add(b1);field.add(b2);field.add(b3);field.add(b4);field.add(b5);field.add(b6);field.add(b7);field.add(b8);
-        JPanel sky=new JPanel();
+
+        Image skyIcon=new ImageIcon("Sources/skybackground.jpg").getImage();
+        JPanelWithBackground sky=new JPanelWithBackground(skyIcon);
         sky.setBounds(430,0,1050,300);
-        Color skycolor=new Color(64, 196, 255);
-        sky.setBackground(skycolor);
         JButton animals=new JButton("Amimals");
         animals.setFont(new Font("Cooper Black", Font.PLAIN, 18));
         animals.setForeground(Color.BLACK);
@@ -65,11 +69,13 @@ public class MainFrame extends JFrame implements ActionListener {
         crops.setContentAreaFilled(false);
         crops.setOpaque(false);
         panel1.add(animals);panel1.add(crops);
-        JLabel label=new JLabel("Svetozar");
-        label.setBounds(0,0,430,134);
-        //label.setBackground(Color.black);
-       // label.setIcon(new ImageIcon("Sources/woodenboard.png"));
-        label.setBackground(Color.orange);
+        JLabel ulabel=new JLabel(user1.getUsername()+"'s farm");
+        ulabel.setBounds(0,0,430,134);
+        
+       Image imgIcon=new ImageIcon("Sources/woodenboard.png").getImage();
+        JPanelWithBackground upanel=new JPanelWithBackground(imgIcon);
+        upanel.setBounds(0,0,430,134);
+        upanel.add(ulabel);
         animals.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -140,9 +146,9 @@ public class MainFrame extends JFrame implements ActionListener {
         frame.add(sky);
         frame.add(panel1);
         frame.add(field);
-        frame.add(label);
+        frame.add(upanel);
         frame.add(menu);
-        frame.setSize(1480,986);
+        frame.setSize(1480, 986);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -154,5 +160,13 @@ public class MainFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

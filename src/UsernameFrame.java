@@ -46,9 +46,10 @@ UsernameFrame(){
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MainFrame mainframe=new MainFrame();
         User user1=new User();
         user1.setUsername(userfield.getText());
+        MainFrame mainframe=new MainFrame(user1);
+        mainframe.setVisible(true);
         uframe.dispose();
     }
 }
