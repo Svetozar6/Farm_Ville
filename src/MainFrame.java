@@ -3,18 +3,27 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
-public class MainFrame extends JFrame implements ActionListener {
+public class MainFrame extends JFrame implements ActionListener, MouseListener {
     JFrame frame;
     User user;
-    Element currentEl;
+    //FarmElement currentEl;
+    ArrayList<FarmElement> elements;
+    ActionListener anL;
+    ActionListener crL;
     MainFrame(User user1){
+        this.elements=new ArrayList<>();
         this.user=user1;
+        //this.currentEl=new FarmElement();
         ImageIcon cowicon=new ImageIcon("Sources/cow.png");
         ImageIcon sheepicon=new ImageIcon("Sources/sheep.png");
         ImageIcon pigicon=new ImageIcon("Sources/pig.png");
@@ -37,112 +46,199 @@ public class MainFrame extends JFrame implements ActionListener {
         JButton mb3=new JButton();mb3.setBackground(Color.orange);mb3.setBorder(null);
         JButton mb4=new JButton();mb4.setBackground(Color.orange);mb4.setBorder(null);
         menu.add(mb1);menu.add(mb2);menu.add(mb3);menu.add(mb4);
-        JPanel field=new JPanel();
+        Image grassIcon=new ImageIcon("Sources/grassbackground.jpg").getImage();
+        JPanelWithBackground field=new JPanelWithBackground(grassIcon);
         field.setBounds(430,300,1050,686);
-        field.setBackground(Color.green);
-        field.setLayout(new GridLayout(2,4));
-        JButton b1=new JButton();b1.setBackground(Color.green);b1.setBorder(null);
-        JButton b2=new JButton();b2.setBackground(Color.green);b2.setBorder(null);
-        JButton b3=new JButton();b3.setBackground(Color.green);b3.setBorder(null);
-        JButton b4=new JButton();b4.setBackground(Color.green);b4.setBorder(null);
-        JButton b5=new JButton();b5.setBackground(Color.green);b5.setBorder(null);
-        JButton b6=new JButton();b6.setBackground(Color.green);b6.setBorder(null);
-        JButton b7=new JButton();b7.setBackground(Color.green);b7.setBorder(null);
-        JButton b8=new JButton();b8.setBackground(Color.green);b8.setBorder(null);
-        field.add(b1);field.add(b2);field.add(b3);field.add(b4);field.add(b5);field.add(b6);field.add(b7);field.add(b8);
-
         Image skyIcon=new ImageIcon("Sources/skybackground.jpg").getImage();
         JPanelWithBackground sky=new JPanelWithBackground(skyIcon);
         sky.setBounds(430,0,1050,300);
         JButton animals=new JButton("Amimals");
-        animals.setFont(new Font("Cooper Black", Font.PLAIN, 18));
-        animals.setForeground(Color.BLACK);
+        animals.setFont(new Font("Cooper Black", Font.PLAIN, 25));
+        animals.setForeground(Color.WHITE);
         animals.setBorder(null);
         animals.setBorderPainted(false);
         animals.setContentAreaFilled(false);
         animals.setOpaque(false);
         JButton crops=new JButton("Crops");
-        crops.setFont(new Font("Cooper Black", Font.PLAIN, 18));
-        crops.setForeground(Color.BLACK);
+        crops.setFont(new Font("Cooper Black", Font.PLAIN, 25));
+        crops.setForeground(Color.WHITE);
         crops.setBorder(null);
         crops.setBorderPainted(false);
         crops.setContentAreaFilled(false);
         crops.setOpaque(false);
         panel1.add(animals);panel1.add(crops);
         JLabel ulabel=new JLabel(user1.getUsername()+"'s farm");
-        ulabel.setBounds(0,0,430,134);
-        
-       Image imgIcon=new ImageIcon("Sources/woodenboard.png").getImage();
+        ulabel.setFont(new Font("Cooper Black", Font.PLAIN, 28));
+        ulabel.setForeground(Color.WHITE);
+        ulabel.setBounds(0,0,420,134);
+        ulabel.setHorizontalAlignment(SwingConstants.CENTER);
+        Image imgIcon=new ImageIcon("Sources/woodenboard.png").getImage();
         JPanelWithBackground upanel=new JPanelWithBackground(imgIcon);
         upanel.setBounds(0,0,430,134);
         upanel.add(ulabel);
+
         animals.addActionListener(new ActionListener() {
+            FarmElement currentEl;
             @Override
             public void actionPerformed(ActionEvent e) {
+                mb1.removeActionListener(crL);
+                mb2.removeActionListener(crL);
+                mb3.removeActionListener(crL);
+                mb4.removeActionListener(crL);
                 mb1.setIcon(cowicon);
                 mb2.setIcon(pigicon);
                 mb3.setIcon(henicon);
                 mb4.setIcon(sheepicon);
-                mb1.addActionListener(new ActionListener() {
+
+                MouseListener mb1l=new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        currentEl=new Cow();
+                        for(int i=0;i<elements.size();i++){
+                            if(currentEl!= elements.get(i)) {
+                                field.add(currentEl.draw(e.getX(),e.getY()));
+                                elements.add(currentEl);
+                            }
+                        }
+                        System.out.println("Cow printed");
+                    }
+                };
+                MouseListener mb2l=new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        currentEl=new Pig();
+                        for(int i=0;i<elements.size();i++){
+                            if(currentEl!= elements.get(i)) {
+                                field.add(currentEl.draw(e.getX(),e.getY()));
+                                elements.add(currentEl);
+                            }
+                        }
+                        System.out.println("Pig printed");
+                    }
+                };
+                MouseListener mb3l=new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        currentEl=new Hen();
+                        for(int i=0;i<elements.size();i++){
+                            if(currentEl!= elements.get(i)) {
+                                field.add(currentEl.draw(e.getX(),e.getY()));
+                                elements.add(currentEl);
+                            }
+                        }
+                        //System.out.println("Hen printed");
+                    }
+                };
+                MouseListener mb4l=new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        currentEl=new Sheep();
+                        for(int i=0;i<elements.size();i++){
+                            if(currentEl!= elements.get(i)) {
+                                field.add(currentEl.draw(e.getX(),e.getY()));
+                                elements.add(currentEl);
+                            }
+                        }
+
+                        //System.out.println("Sheep printed");
+                    }
+                };
+                 anL=new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        b1.setIcon(cowicon);
+                        field.removeMouseListener(mb1l);
+                        field.removeMouseListener(mb2l);
+                        field.removeMouseListener(mb3l);
+                        field.removeMouseListener(mb4l);
+                        if(e.getSource()==mb1) {
+                            field.removeMouseListener(mb2l);
+                            field.removeMouseListener(mb3l);
+                            field.removeMouseListener(mb4l);
+                            field.addMouseListener(mb1l);
+
+                        }
+                        if(e.getSource()==mb2) {
+                            field.removeMouseListener(mb1l);
+                            field.removeMouseListener(mb3l);
+                            field.removeMouseListener(mb4l);
+                            field.addMouseListener(mb2l);
+                        }
+                        if(e.getSource()==mb3) {
+                            field.removeMouseListener(mb2l);
+                            field.removeMouseListener(mb1l);
+                            field.removeMouseListener(mb4l);
+                            field.addMouseListener(mb3l);
+                        }
+                        if(e.getSource()==mb4) {
+                            field.removeMouseListener(mb2l);
+                            field.removeMouseListener(mb3l);
+                            field.removeMouseListener(mb1l);
+                            field.addMouseListener(mb4l);
+
+                        }
                     }
-                });
-                mb3.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        b3.setIcon(henicon);
-                    }
-                });
-                mb4.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        b4.setIcon(sheepicon);
-                    }
-                });
-                mb2.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        b2.setIcon(pigicon);
-                    }
-                });
-            }
+                };
+                mb1.addActionListener(anL);
+                mb2.addActionListener(anL);
+                mb3.addActionListener(anL);
+                mb4.addActionListener(anL);
+
+        };
+
+
+
         });
         crops.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mb1.removeActionListener(anL);
+                mb2.removeActionListener(anL);
+                mb3.removeActionListener(anL);
+                mb4.removeActionListener(anL);
                 mb4.setIcon(cornicon);
                 mb1.setIcon(wheaticon);
                 mb2.setIcon(soybeanicon);
                 mb3.setIcon(carroticon);
-                mb2.addActionListener(new ActionListener() {
+                MouseListener mb1l=new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        field.setBackground(Color.BLACK);
+                    }
+                };
+                MouseListener mb2l=new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        field.setBackground(Color.CYAN);
+                    }
+                };
+                MouseListener mb3l=new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        field.setBackground(Color.BLUE);
+                    }
+                };
+                MouseListener mb4l=new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        field.setBackground(Color.DARK_GRAY);
+                    }
+                };
+                crL=new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        b5.setIcon(soybeanicon);
+                        if(e.getSource()==mb1) field.addMouseListener(mb1l);
+                        if(e.getSource()==mb2) field.addMouseListener(mb2l);
+                        if(e.getSource()==mb3) field.addMouseListener(mb3l);
+                        if(e.getSource()==mb4) field.addMouseListener(mb4l);
                     }
-                });
-                mb3.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        b6.setIcon(carroticon);
-                    }
-                });
-                mb4.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        b7.setIcon(cornicon);
-                    }
-                });
-                mb1.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        b8.setIcon(wheaticon);
-                    }
-                });
+                };
+                mb1.addActionListener(crL);
+                mb2.addActionListener(crL);
+                mb3.addActionListener(crL);
+                mb4.addActionListener(crL);
+
             }
         });
-
         frame.add(sky);
         frame.add(panel1);
         frame.add(field);
@@ -153,9 +249,7 @@ public class MainFrame extends JFrame implements ActionListener {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -168,5 +262,30 @@ public class MainFrame extends JFrame implements ActionListener {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
