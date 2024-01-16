@@ -12,12 +12,14 @@ import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MainFrame extends JFrame implements ActionListener, MouseListener {
     JFrame frame;
     User user;
-    //FarmElement currentEl;
-    ArrayList<FarmElement> elements;
+    ArrayList<PaintImage> elements;
     ActionListener anL;
     ActionListener crL;
     MainFrame(User user1){
@@ -78,7 +80,7 @@ public class MainFrame extends JFrame implements ActionListener, MouseListener {
         upanel.add(ulabel);
 
         animals.addActionListener(new ActionListener() {
-            FarmElement currentEl;
+            PaintImage currentEl1;
             @Override
             public void actionPerformed(ActionEvent e) {
                 mb1.removeActionListener(crL);
@@ -93,88 +95,50 @@ public class MainFrame extends JFrame implements ActionListener, MouseListener {
                 MouseListener mb1l=new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        currentEl=new Cow();
-                        for(int i=0;i<elements.size();i++){
-                            if(currentEl!= elements.get(i)) {
-                                field.add(currentEl.draw(e.getX(),e.getY()));
-                                elements.add(currentEl);
-                            }
-                        }
-                        System.out.println("Cow printed");
+                        currentEl1=new PaintImage(field,e.getX(),e.getY(),"cow");
+                        field.add(currentEl1);
+                        elements.add(currentEl1);
                     }
                 };
                 MouseListener mb2l=new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        currentEl=new Pig();
-                        for(int i=0;i<elements.size();i++){
-                            if(currentEl!= elements.get(i)) {
-                                field.add(currentEl.draw(e.getX(),e.getY()));
-                                elements.add(currentEl);
-                            }
-                        }
-                        System.out.println("Pig printed");
+                        currentEl1=new PaintImage(field,e.getX(),e.getY(),"pig");
+                        field.add(currentEl1);
+                        elements.add(currentEl1);
                     }
+
                 };
                 MouseListener mb3l=new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        currentEl=new Hen();
-                        for(int i=0;i<elements.size();i++){
-                            if(currentEl!= elements.get(i)) {
-                                field.add(currentEl.draw(e.getX(),e.getY()));
-                                elements.add(currentEl);
-                            }
-                        }
-                        //System.out.println("Hen printed");
+                        currentEl1=new PaintImage(field,e.getX(),e.getY(),"hen");
+                        field.add(currentEl1);
+                        elements.add(currentEl1);
                     }
                 };
                 MouseListener mb4l=new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        currentEl=new Sheep();
-                        for(int i=0;i<elements.size();i++){
-                            if(currentEl!= elements.get(i)) {
-                                field.add(currentEl.draw(e.getX(),e.getY()));
-                                elements.add(currentEl);
-                            }
-                        }
-
-                        //System.out.println("Sheep printed");
+                        currentEl1=new PaintImage(field,e.getX(),e.getY(),"sheep");
+                        field.add(currentEl1);
+                        elements.add(currentEl1);
                     }
                 };
                  anL=new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        field.removeMouseListener(mb1l);
-                        field.removeMouseListener(mb2l);
-                        field.removeMouseListener(mb3l);
-                        field.removeMouseListener(mb4l);
                         if(e.getSource()==mb1) {
-                            field.removeMouseListener(mb2l);
-                            field.removeMouseListener(mb3l);
-                            field.removeMouseListener(mb4l);
                             field.addMouseListener(mb1l);
-
                         }
                         if(e.getSource()==mb2) {
-                            field.removeMouseListener(mb1l);
-                            field.removeMouseListener(mb3l);
-                            field.removeMouseListener(mb4l);
                             field.addMouseListener(mb2l);
                         }
                         if(e.getSource()==mb3) {
-                            field.removeMouseListener(mb2l);
-                            field.removeMouseListener(mb1l);
-                            field.removeMouseListener(mb4l);
                             field.addMouseListener(mb3l);
                         }
                         if(e.getSource()==mb4) {
-                            field.removeMouseListener(mb2l);
-                            field.removeMouseListener(mb3l);
-                            field.removeMouseListener(mb1l);
                             field.addMouseListener(mb4l);
-
                         }
                     }
                 };
@@ -185,10 +149,9 @@ public class MainFrame extends JFrame implements ActionListener, MouseListener {
 
         };
 
-
-
         });
         crops.addActionListener(new ActionListener() {
+            PaintImage currentEl1;
             @Override
             public void actionPerformed(ActionEvent e) {
                 mb1.removeActionListener(anL);
@@ -202,34 +165,52 @@ public class MainFrame extends JFrame implements ActionListener, MouseListener {
                 MouseListener mb1l=new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        field.setBackground(Color.BLACK);
+                        currentEl1 = new PaintImage(field, e.getX(), e.getY(), "wheatstage1");
+                        field.add(currentEl1);
                     }
+
+
                 };
                 MouseListener mb2l=new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        field.setBackground(Color.CYAN);
+                        currentEl1=new PaintImage(field,e.getX(),e.getY(),"soybeanstage1");
+                        field.add(currentEl1);
+                        elements.add(currentEl1);
                     }
                 };
                 MouseListener mb3l=new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        field.setBackground(Color.BLUE);
+                        currentEl1=new PaintImage(field,e.getX(),e.getY(),"carrotstage1");
+                        field.add(currentEl1);
+                        elements.add(currentEl1);
                     }
                 };
                 MouseListener mb4l=new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        field.setBackground(Color.DARK_GRAY);
+                        currentEl1=new PaintImage(field,e.getX(),e.getY(),"cornstage1");
+                        field.add(currentEl1);
+                        elements.add(currentEl1);
                     }
                 };
                 crL=new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if(e.getSource()==mb1) field.addMouseListener(mb1l);
-                        if(e.getSource()==mb2) field.addMouseListener(mb2l);
-                        if(e.getSource()==mb3) field.addMouseListener(mb3l);
-                        if(e.getSource()==mb4) field.addMouseListener(mb4l);
+                        if(e.getSource()==mb1) {
+                            field.addMouseListener(mb1l);
+                        }
+                        if(e.getSource()==mb2) {
+                            field.addMouseListener(mb2l);
+                        }
+                        if(e.getSource()==mb3) {
+                            field.addMouseListener(mb3l);
+                        }
+                        if(e.getSource()==mb4) {
+                            field.addMouseListener(mb4l);
+
+                        }
                     }
                 };
                 mb1.addActionListener(crL);
@@ -249,6 +230,14 @@ public class MainFrame extends JFrame implements ActionListener, MouseListener {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+    }
+
+    public ArrayList<PaintImage> getElements() {
+        return elements;
+    }
+
+    public void setElements(ArrayList<PaintImage> elements) {
+        this.elements = elements;
     }
 
     @Override
