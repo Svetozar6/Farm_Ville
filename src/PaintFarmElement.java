@@ -24,6 +24,17 @@ public class PaintFarmElement extends JLabel{
     }
 
    public JLabel drawImage() {
+//        switch (this.elementType){
+//            case "cow":
+//                this.paintElement.setIcon(this.icon);
+//                this.paintElement.setBounds(this.x-100,this.y-63,200,127);
+//                return this.paintElement;
+//            case "pig":
+//                this.paintElement.setIcon(this.icon);
+//                this.paintElement.setBounds(this.x-100,this.y-63,200,127);
+//                return this.paintElement;
+//
+//        }
        if (Objects.equals(this.elementType, "cow")) {
            this.paintElement.setIcon(this.icon);
            this.paintElement.setBounds(this.x-100,this.y-63,200,127);
