@@ -14,7 +14,8 @@ public class MainFrame extends JFrame  {
     MainFrame(User user1) {
         this.elements = new ArrayList<>();
         this.user = user1;
-        //this.currentEl=new FarmElement();
+        elements=new ArrayList<>();
+        MouseListener mb1l = null, mb2l = null,mb3l = null,mb4l = null;
         ImageIcon cowicon = new ImageIcon("Sources/cow.png");
         ImageIcon sheepicon = new ImageIcon("Sources/sheep.png");
         ImageIcon pigicon = new ImageIcon("Sources/pig.png");
@@ -26,7 +27,7 @@ public class MainFrame extends JFrame  {
         this.frame = new JFrame("FarmVille");
         JPanel panel1 = new JPanel();
         panel1.setBounds(0, 134, 430, 150);
-        panel1.setLayout(new GridLayout(1, 2));
+        panel1.setLayout(new GridLayout(1, 3));
         panel1.setBackground(Color.orange);
         JPanel menu = new JPanel();
         menu.setBounds(0, 284, 430, 702);
@@ -68,8 +69,16 @@ public class MainFrame extends JFrame  {
         crops.setBorderPainted(false);
         crops.setContentAreaFilled(false);
         crops.setOpaque(false);
+        JButton restart=new JButton("Restart");
+        restart.setFont(new Font("Cooper Black", Font.PLAIN, 25));
+        restart.setForeground(Color.WHITE);
+        restart.setBorder(null);
+        restart.setBorderPainted(false);
+        restart.setContentAreaFilled(false);
+        restart.setOpaque(false);
         panel1.add(animals);
         panel1.add(crops);
+        panel1.add(restart);
         JLabel ulabel = new JLabel(user1.getUsername() + "'s farm");
         ulabel.setFont(new Font("Cooper Black", Font.PLAIN, 28));
         ulabel.setForeground(Color.WHITE);
@@ -81,7 +90,7 @@ public class MainFrame extends JFrame  {
         upanel.add(ulabel);
 
         animals.addActionListener(new ActionListener() {
-            PaintFarmElement currentEl1;
+            PaintFarmElement currentEl1=null;
             MouseListener mb1l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -130,10 +139,6 @@ public class MainFrame extends JFrame  {
                 mb2.setIcon(pigicon);
                 mb3.setIcon(henicon);
                 mb4.setIcon(sheepicon);
-                field.removeMouseListener(mb1l);
-                field.removeMouseListener(mb2l);
-                field.removeMouseListener(mb3l);
-                field.removeMouseListener(mb4l);
                 anL = new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -159,21 +164,24 @@ public class MainFrame extends JFrame  {
                 mb2.addActionListener(anL);
                 mb3.addActionListener(anL);
                 mb4.addActionListener(anL);
-
             }
-
-
-
         });
         crops.addActionListener(new ActionListener() {
-            PaintFarmElement currentEl1;
+            PaintFarmElement currentEl1=null;
             MouseListener mb1l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "wheatstage1");
-                    field.add(currentEl1.drawImage());
-                    elements.add(currentEl1);
-                    field.repaint();
+                    for (int i = 1; i < 5; i++) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "wheatstage" + (char) i);
+                        field.add(currentEl1.drawImage());
+                        // elements.add(currentEl1);
+                        field.repaint();
+                        try {
+                            Thread.sleep(2 * 1000);
+                        } catch (InterruptedException ie) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
                 }
 
 
@@ -181,29 +189,52 @@ public class MainFrame extends JFrame  {
             MouseListener mb2l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "soybeanstage1");
-                    field.add(currentEl1.drawImage());
-                    elements.add(currentEl1);
-                    field.repaint();
+                    for (int i = 1; i < 5; i++) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "soybeanstage" + (char) i);
+                        field.add(currentEl1.drawImage());
+                        //elements.add(currentEl1);
+                        field.repaint();
+                        try {
+                            Thread.sleep(2 * 1000);
+                        } catch (InterruptedException ie) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
                 }
             };
+
             MouseListener mb3l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "carrotstage1");
-                    field.add(currentEl1.drawImage());
-                    elements.add(currentEl1);
-                    field.repaint();
+                    for (int i = 1; i < 5; i++) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "carrotstage" + (char) i);
+                        field.add(currentEl1.drawImage());
+                        //elements.add(currentEl1);
+                        field.repaint();
+                        try {
+                            Thread.sleep(2 * 1000);
+                        } catch (InterruptedException ie) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
                 }
             };
             MouseListener mb4l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "cornstage1");
-                    field.add(currentEl1.drawImage());
-                    elements.add(currentEl1);
-                    field.repaint();
+                    for (int i = 1; i < 5; i++) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "cornstage" +(char)i);
+                        field.add(currentEl1.drawImage());
+                        //elements.add(currentEl1);
+                        field.repaint();
+                        try {
+                            Thread.sleep(2 * 1000);
+                        } catch (InterruptedException ie) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
                 }
+
             };
 
             @Override
@@ -216,10 +247,6 @@ public class MainFrame extends JFrame  {
                 mb1.setIcon(wheaticon);
                 mb2.setIcon(soybeanicon);
                 mb3.setIcon(carroticon);
-                field.removeMouseListener(mb1l);
-                field.removeMouseListener(mb2l);
-                field.removeMouseListener(mb3l);
-                field.removeMouseListener(mb4l);
                 crL = new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -238,15 +265,23 @@ public class MainFrame extends JFrame  {
                         }
                         if (e.getSource() == mb4) {
                             field.addMouseListener(mb4l);
-
                         }
                     }
+
+
                 };
                 mb1.addActionListener(crL);
                 mb2.addActionListener(crL);
                 mb3.addActionListener(crL);
                 mb4.addActionListener(crL);
+            }
 
+            });
+        restart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                field.removeAll();
+                field.repaint();
             }
         });
         frame.add(sky);

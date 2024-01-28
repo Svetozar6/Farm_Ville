@@ -24,60 +24,29 @@ public class PaintFarmElement extends JLabel{
     }
 
    public JLabel drawImage() {
-//        switch (this.elementType){
-//            case "cow":
-//                this.paintElement.setIcon(this.icon);
-//                this.paintElement.setBounds(this.x-100,this.y-63,200,127);
-//                return this.paintElement;
-//            case "pig":
-//                this.paintElement.setIcon(this.icon);
-//                this.paintElement.setBounds(this.x-100,this.y-63,200,127);
-//                return this.paintElement;
-//
-//        }
-       if (Objects.equals(this.elementType, "cow")) {
-           this.paintElement.setIcon(this.icon);
-           this.paintElement.setBounds(this.x-100,this.y-63,200,127);
-           return this.paintElement;
-       }
-       if (Objects.equals(this.elementType, "pig")) {
-           this.paintElement.setIcon(this.icon);
-           this.paintElement.setBounds(this.x-85,this.y-63,170,166);
-           return this.paintElement;
-       }
-       if (Objects.equals(this.elementType, "hen")) {
-           this.paintElement.setIcon(this.icon);
-           this.paintElement.setBounds(this.x-70,this.y-100,141,200);
-           return this.paintElement;
-      }
-       if (Objects.equals(this.elementType, "sheep")) {
-           this.paintElement.setIcon(this.icon);
-           this.paintElement.setBounds(this.x-90,this.y-91,180,183);
-           return this.paintElement;
-       }
-       if (Objects.equals(this.elementType, "wheatstage1")) {
-           this.paintElement.setIcon(this.icon);
-           this.paintElement.setBounds(this.x-80,this.y-80,160,160);
-           return this.paintElement;
-       }
-       if (Objects.equals(this.elementType, "soybeanstage1")) {
-           this.paintElement.setIcon(this.icon);
-           this.paintElement.setBounds(this.x-80,this.y-80,160,160);
-           return this.paintElement;
+        switch (this.elementType){
+            case "cow":
+                this.paintElement.setIcon(this.icon);
+                this.paintElement.setBounds(this.x-100,this.y-63,200,127);
+                return this.paintElement;
+            case "pig":
+                this.paintElement.setIcon(this.icon);
+                this.paintElement.setBounds(this.x-85,this.y-63,170,166);
+                return this.paintElement;
+            case "hen":
+                this.paintElement.setIcon(this.icon);
+                this.paintElement.setBounds(this.x-70,this.y-100,141,200);
+                return this.paintElement;
+            case "sheep":
+                this.paintElement.setIcon(this.icon);
+                this.paintElement.setBounds(this.x-90,this.y-91,180,183);
+                return this.paintElement;
+            case "wheatstage1", "wheatstage2", "wheatstage3", "wheatstage4", "soybeanstage1", "soybeanstage2", "soybeanstage3", "soybeanstage4",  "carrotstage1", "carrotstage2", "carrotstage3", "carrotstage4", "cornstage1", "cornstage2", "cornstage3", "cornstage4":
+                this.paintElement.setIcon(this.icon);
+                this.paintElement.setBounds(this.x-80,this.y-80,160,160);
+                return this.paintElement;
 
-       }
-       if (Objects.equals(this.elementType, "carrotstage1")) {
-           this.paintElement.setIcon(this.icon);
-           this.paintElement.setBounds(this.x-80,this.y-80,160,160);
-           return this.paintElement;
-
-       }
-       if (Objects.equals(this.elementType, "cornstage1")) {
-           this.paintElement.setIcon(this.icon);
-           this.paintElement.setBounds(this.x-80,this.y-80,160,160);
-           return this.paintElement;
-
-       }
+        }
        return this.paintElement;
    }
 
