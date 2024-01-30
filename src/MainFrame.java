@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 
-public class MainFrame extends JFrame  {
+public class MainFrame extends JFrame {
     JFrame frame;
     User user;
     ArrayList<PaintFarmElement> elements;
@@ -14,8 +14,8 @@ public class MainFrame extends JFrame  {
     MainFrame(User user1) {
         this.elements = new ArrayList<>();
         this.user = user1;
-        elements=new ArrayList<>();
-        MouseListener mb1l = null, mb2l = null,mb3l = null,mb4l = null;
+        elements = new ArrayList<>();
+        MouseListener mb1l = null, mb2l = null, mb3l = null, mb4l = null;
         ImageIcon cowicon = new ImageIcon("Sources/cow.png");
         ImageIcon sheepicon = new ImageIcon("Sources/sheep.png");
         ImageIcon pigicon = new ImageIcon("Sources/pig.png");
@@ -69,7 +69,7 @@ public class MainFrame extends JFrame  {
         crops.setBorderPainted(false);
         crops.setContentAreaFilled(false);
         crops.setOpaque(false);
-        JButton restart=new JButton("Restart");
+        JButton restart = new JButton("Restart");
         restart.setFont(new Font("Cooper Black", Font.PLAIN, 25));
         restart.setForeground(Color.WHITE);
         restart.setBorder(null);
@@ -88,44 +88,230 @@ public class MainFrame extends JFrame  {
         JPanelWithBackground upanel = new JPanelWithBackground(imgIcon);
         upanel.setBounds(0, 0, 430, 134);
         upanel.add(ulabel);
-
+//        ActionListener el = new ActionListener() {
+//            ActionListener placingL = new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    field.removeMouseListener(mb1l);
+//                    field.removeMouseListener(mb2l);
+//                    field.removeMouseListener(mb3l);
+//                    field.removeMouseListener(mb4l);
+//                    if (e.getSource() == mb1) {
+//                        field.addMouseListener(mb1l);
+//                    }
+//                    if (e.getSource() == mb2) {
+//                        field.addMouseListener(mb2l);
+//                    }
+//                    if (e.getSource() == mb3) {
+//                        field.addMouseListener(mb3l);
+//                    }
+//                    if (e.getSource() == mb4) {
+//                        field.addMouseListener(mb4l);
+//                    }
+//                }
+//            };
+//            PaintFarmElement currentEl1 = null;
+//            MouseListener mb1l = null, mb2l = null, mb3l = null, mb4l = null;
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mb1l = null; mb2l=null;mb3l=null;mb4l=null;
+//                if (e.getSource() == animals) {
+//                    mb1.removeActionListener(placingL);
+//                    mb2.removeActionListener(placingL);
+//                    mb3.removeActionListener(placingL);
+//                    mb4.removeActionListener(placingL);
+//                    mb1.setIcon(cowicon);
+//                    mb2.setIcon(pigicon);
+//                    mb3.setIcon(henicon);
+//                    mb4.setIcon(sheepicon);
+//                    mb1l = new MouseAdapter() {
+//                        @Override
+//                        public void mouseClicked(MouseEvent e) {
+//                            if (e.getModifiers() == MouseEvent.BUTTON1_MASK && e.getClickCount() == 1) {
+//                                currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "cow");
+//                                field.add(currentEl1.drawImage());
+//                                //elements.add(currentEl1);
+//                                field.repaint();
+//                                currentEl1=null;
+//                            }
+//                        }
+//                    };
+//                    mb2l = new MouseAdapter() {
+//                        @Override
+//                        public void mouseClicked(MouseEvent e) {
+//                            if (e.getModifiers() == MouseEvent.BUTTON1_MASK && e.getClickCount() == 1) {
+//                                currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "pig");
+//                                field.add(currentEl1.drawImage());
+//                                //elements.add(currentEl1);
+//                                field.repaint();
+//                                currentEl1=null;
+//                            }
+//                        }
+//
+//                    };
+//                    mb3l = new MouseAdapter() {
+//                        @Override
+//                        public void mouseClicked(MouseEvent e) {
+//                            if (e.getModifiers() == MouseEvent.BUTTON1_MASK && e.getClickCount() == 1) {
+//                                currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "hen");
+//                                field.add(currentEl1.drawImage());
+//                                //elements.add(currentEl1);
+//                                field.repaint();
+//                                currentEl1=null;
+//                            }
+//                        }
+//                    };
+//                    mb4l = new MouseAdapter() {
+//                        @Override
+//                        public void mouseClicked(MouseEvent e) {
+//                            if (e.getModifiers() == MouseEvent.BUTTON1_MASK && e.getClickCount() == 1) {
+//                                currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "sheep");
+//                                field.add(currentEl1.drawImage());
+//                                //elements.add(currentEl1);
+//                                field.repaint();
+//                                currentEl1=null;
+//                            }
+//                        }
+//                    };
+//
+//                    mb1.addActionListener(placingL);
+//                    mb2.addActionListener(placingL);
+//                    mb3.addActionListener(placingL);
+//                    mb4.addActionListener(placingL);
+//
+//                }
+//                if (e.getSource() == crops) {
+//                    mb1.removeActionListener(placingL);
+//                    mb2.removeActionListener(placingL);
+//                    mb3.removeActionListener(placingL);
+//                    mb4.removeActionListener(placingL);
+//                    mb1.setIcon(wheaticon);
+//                    mb2.setIcon(soybeanicon);
+//                    mb3.setIcon(carroticon);
+//                    mb4.setIcon(cornicon);
+//                    mb1l = new MouseAdapter() {
+//                        @Override
+//                        public void mouseClicked(MouseEvent e) {
+//                            final int[] i = {1};
+//                            if (e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1) {
+//                                currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "wheatstage" + i[0]);
+//                                field.add(currentEl1.drawImage());
+//                                //elements.add(currentEl1);
+//                                field.repaint();
+//                                currentEl1=null;
+//                            }
+//                        }
+//                    };
+//                    mb2l = new MouseAdapter() {
+//                        @Override
+//                        public void mouseClicked(MouseEvent e) {
+//                            final int[] i = {1};
+//                            if (e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1) {
+//                                currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "soybeanstage" + i[0]);
+//                                field.add(currentEl1.drawImage());
+//                                //elements.add(currentEl1);
+//                                field.repaint();
+//                                currentEl1=null;
+//                            }
+//                        }
+//                    };
+//
+//                    mb3l = new MouseAdapter() {
+//                        @Override
+//                        public void mouseClicked(MouseEvent e) {
+//                            final int[] i = {1};
+//                            if (e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1) {
+//                                currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "carrotstage" + i[0]);
+//                                field.add(currentEl1.drawImage());
+//                                //elements.add(currentEl1);
+//                                field.repaint();
+//                                currentEl1=null;
+//                            }
+//
+//                        }
+//                    };
+//                    mb4l = new MouseAdapter() {
+//                        @Override
+//                        public void mouseClicked(MouseEvent e) {
+//                            final int[] i={1};
+//                            if (e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1) {
+//                                currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "cornstage"+ i[0]);
+//                                field.add(currentEl1.drawImage());
+//                                //elements.add(currentEl1);
+//                                field.repaint();
+//                                currentEl1=null;
+//                            }
+//                        }
+//                    };
+//                    mb1.addActionListener(placingL);
+//                    mb2.addActionListener(placingL);
+//                    mb3.addActionListener(placingL);
+//                    mb4.addActionListener(placingL);
+//                }
+//                if(e.getSource()==restart) {
+//                    mb1.removeActionListener(placingL);
+//                    mb2.removeActionListener(placingL);
+//                    mb3.removeActionListener(placingL);
+//                    mb4.removeActionListener(placingL);
+//                    field.removeMouseListener(mb1l);
+//                    field.removeMouseListener(mb2l);
+//                    field.removeMouseListener(mb3l);
+//                    field.removeMouseListener(mb4l);
+//                    currentEl1=null;
+//                    field.removeAll();
+//                    field.repaint();
+//                }
+//            }
+//        };
+//        animals.addActionListener(el);
+//        crops.addActionListener(el);
+//        restart.addActionListener(el);
         animals.addActionListener(new ActionListener() {
             PaintFarmElement currentEl1=null;
-            MouseListener mb1l = new MouseAdapter() {
+           MouseListener mb1l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "cow");
-                    field.add(currentEl1.drawImage());
-                    elements.add(currentEl1);
-                    field.repaint();
+                    if (e.getModifiers() == MouseEvent.BUTTON1_MASK && e.getClickCount() == 1) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "cow");
+                        field.add(currentEl1.drawImage());
+                        //elements.add(currentEl1);
+                        field.repaint();
+                    }
                 }
             };
             MouseListener mb2l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "pig");
-                    field.add(currentEl1.drawImage());
-                    elements.add(currentEl1);
-                    field.repaint();
+                    if (e.getModifiers() == MouseEvent.BUTTON1_MASK && e.getClickCount() == 1) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "pig");
+                        field.add(currentEl1.drawImage());
+                        //elements.add(currentEl1);
+                        field.repaint();
+                    }
                 }
 
             };
             MouseListener mb3l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "hen");
-                    field.add(currentEl1.drawImage());
-                    elements.add(currentEl1);
-                    field.repaint();
+                    if (e.getModifiers() == MouseEvent.BUTTON1_MASK && e.getClickCount() == 1) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "hen");
+                        field.add(currentEl1.drawImage());
+                        //elements.add(currentEl1);
+                        field.repaint();
+                    }
                 }
             };
             MouseListener mb4l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "sheep");
-                    field.add(currentEl1.drawImage());
-                    elements.add(currentEl1);
-                    field.repaint();
+                    if (e.getModifiers() == MouseEvent.BUTTON1_MASK && e.getClickCount() == 1) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "sheep");
+                        field.add(currentEl1.drawImage());
+                        //elements.add(currentEl1);
+                        field.repaint();
+                    }
                 }
             };
 
@@ -168,19 +354,15 @@ public class MainFrame extends JFrame  {
         });
         crops.addActionListener(new ActionListener() {
             PaintFarmElement currentEl1=null;
-            MouseListener mb1l = new MouseAdapter() {
+             MouseListener mb1l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    for (int i = 1; i < 5; i++) {
-                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "wheatstage" + (char) i);
+                    final int[] i = {1};
+                    if (e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "wheatstage" + i[0]);
                         field.add(currentEl1.drawImage());
-                        // elements.add(currentEl1);
+                        //elements.add(currentEl1);
                         field.repaint();
-                        try {
-                            Thread.sleep(2 * 1000);
-                        } catch (InterruptedException ie) {
-                            Thread.currentThread().interrupt();
-                        }
                     }
                 }
 
@@ -189,50 +371,55 @@ public class MainFrame extends JFrame  {
             MouseListener mb2l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    for (int i = 1; i < 5; i++) {
-                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "soybeanstage" + (char) i);
+                    final int[] i = {1};
+                    if (e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "soybeanstage" + i[0]);
                         field.add(currentEl1.drawImage());
                         //elements.add(currentEl1);
                         field.repaint();
-                        try {
-                            Thread.sleep(2 * 1000);
-                        } catch (InterruptedException ie) {
-                            Thread.currentThread().interrupt();
-                        }
                     }
                 }
             };
 
-            MouseListener mb3l = new MouseAdapter() {
+             MouseListener mb3l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    for (int i = 1; i < 5; i++) {
-                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "carrotstage" + (char) i);
+                    final int[] i = {1};
+                    if (e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "carrotstage" + i[0]);
                         field.add(currentEl1.drawImage());
                         //elements.add(currentEl1);
                         field.repaint();
-                        try {
-                            Thread.sleep(2 * 1000);
-                        } catch (InterruptedException ie) {
-                            Thread.currentThread().interrupt();
-                        }
                     }
+
                 }
             };
-            MouseListener mb4l = new MouseAdapter() {
+             MouseListener mb4l = new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    for (int i = 1; i < 5; i++) {
-                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "cornstage" +(char)i);
+                    final int[] i = {1};
+                    if (e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1) {
+                        currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "cornstage" + i[0]);
                         field.add(currentEl1.drawImage());
                         //elements.add(currentEl1);
                         field.repaint();
-                        try {
-                            Thread.sleep(2 * 1000);
-                        } catch (InterruptedException ie) {
-                            Thread.currentThread().interrupt();
-                        }
                     }
+
+                    MouseListener growthml=new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            if (e.getModifiers() == MouseEvent.BUTTON3_MASK && e.getClickCount() == 1) {
+                                i[0]++;
+                                field.removeMouseListener(mb4l);
+                                field.remove(currentEl1.drawImage());
+                                currentEl1 = new PaintFarmElement(field, e.getX(), e.getY(), "cornstage" + i[0]);
+                            }
+
+                        }
+                    };
+                   // field.addMouseListener(growthml);
+
+
                 }
 
             };
@@ -280,7 +467,7 @@ public class MainFrame extends JFrame  {
         restart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                field.removeAll();
+                field.removeAll();;
                 field.repaint();
             }
         });
@@ -295,7 +482,6 @@ public class MainFrame extends JFrame  {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     }
-
 
 
 }
